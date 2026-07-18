@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 df=pd.read_csv('Python/temperature.csv')
 df['Date']=pd.to_datetime(df['Date'],format='%d-%m-%Y')
 df[['Temp Max','Temp Min','Rain']]=df[['Temp Max','Temp Min','Rain']].apply(pd.to_numeric,errors='coerce')
-df = df[df['Date'].dt.year < 2024]
+df = df[df['Date'].dt.year < 2023]
 day_of_year=df['Date'].dt.dayofyear
 
 #Grouping according to year
@@ -32,13 +32,13 @@ heatwave_per_year=df.groupby(df['Date'].dt.year)['Heatwave'].sum()
 rainfall=df.groupby(df['Date'].dt.year)['Rain'].sum()
 
 #Temperature Rise
-first=group[group.index<1960]['Temp Max'].mean()
-last=group[group.index>2011]['Temp Max'].mean()
+first=group[group.index<1961]['Temp Max'].mean()
+last=group[group.index>2010]['Temp Max'].mean()
 rise=last-first
 
 #Heatwave Rise
-early = heatwave_per_year[heatwave_per_year.index < 1971].mean()
-recent = heatwave_per_year[heatwave_per_year.index > 2003].mean()
+early = heatwave_per_year[heatwave_per_year.index < 1961].mean()
+recent = heatwave_per_year[heatwave_per_year.index > 2011].mean()
 
 #Conclusion
 print(f'Hottest Month      :{months["Temp Max"].idxmax()}')
